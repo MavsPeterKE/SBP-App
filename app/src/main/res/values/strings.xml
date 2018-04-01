@@ -6,4 +6,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="confirm_Payment">Confirm Payment</string>
+    <string name="number_plate_header">Number Plate :</string>
+    <string name="numberplate_value">KAQ657J</string>
+    <string name="seat_lable">Seat No            :</string>
+    <string name="fare_lable">Fare Amount    :</string>
 </resources>
