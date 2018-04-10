@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:weightSum="2.1"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.peter.smartfarepayer.PayLaunchActivity"
+    tools:context="com.example.peter.smartfarepayer.view.activity.PayLaunchActivity"
     tools:showIn="@layout/app_bar_pay_launch">
 
     <ImageView

@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PayLaunchActivity">
+        <activity android:name=".view.activity.PayLaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,8 +17,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:label="Pay Bus Fare"></activity>
+            android:name=".view.activity.MainActivity"
+            android:label="Pay Bus Fare"
+            android:parentActivityName=".view.activity.PayLaunchActivity"></activity>
+        <activity
+            android:name=".view.activity.ComplainActivity"
+            android:label="Complain"
+            android:parentActivityName=".view.activity.PayLaunchActivity"></activity>
     </application>
 
 </manifest>
