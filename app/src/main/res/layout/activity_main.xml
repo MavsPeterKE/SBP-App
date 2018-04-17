@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:weightSum="2.1"
     android:orientation="vertical"
-    tools:context="com.example.peter.smartfarepayer.view.activity.MainActivity">
+    tools:context="com.example.peter.smartfarepayer.view.activity.ConfirmPaymentActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -37,7 +37,7 @@
             android:textColor="@color/white_transluscent"
             android:inputType="textPersonName"
             android:tooltipText="Bus Plate Number"
-            android:hint="Number Plate" />
+            android:hint="KQX 478J" />
         <EditText
             android:id="@+id/editText2"
             android:layout_width="wrap_content"

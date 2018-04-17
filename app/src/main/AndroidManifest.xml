@@ -17,12 +17,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.activity.MainActivity"
+            android:name=".view.activity.ConfirmPaymentActivity"
             android:label="Pay Bus Fare"
             android:parentActivityName=".view.activity.PayLaunchActivity"></activity>
         <activity
             android:name=".view.activity.ComplainActivity"
             android:label="Complain"
+            android:parentActivityName=".view.activity.PayLaunchActivity"></activity>
+        <activity
+            android:name=".view.activity.FareHistoryActivity"
+            android:label="Fare History"
             android:parentActivityName=".view.activity.PayLaunchActivity"></activity>
     </application>
 

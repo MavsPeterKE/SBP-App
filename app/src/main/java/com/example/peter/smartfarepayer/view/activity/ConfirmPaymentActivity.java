@@ -8,7 +8,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.example.peter.smartfarepayer.R;
 
-public class MainActivity extends AppCompatActivity {
+public class ConfirmPaymentActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

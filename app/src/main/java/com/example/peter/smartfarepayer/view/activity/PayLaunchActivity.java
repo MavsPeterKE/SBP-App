@@ -13,8 +13,7 @@ import android.view.MenuItem;
 
 import com.example.peter.smartfarepayer.R;
 
-public class PayLaunchActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class PayLaunchActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +23,7 @@ public class PayLaunchActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -73,9 +71,9 @@ public class PayLaunchActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, ConfirmPaymentActivity.class));
         } else if (id == R.id.nav_gallery) {
-
+            startActivity(new Intent(this, FareHistoryActivity.class));
 
         } else if (id == R.id.nav_slideshow) {
 
