@@ -5,14 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
 
 import com.example.peter.smartfarepayer.R;
 import com.example.peter.smartfarepayer.view.adapter.FareRecyclerAdapter;
-import com.example.peter.smartfarepayer.viewModel.FareHistoryModel;
+import com.example.peter.smartfarepayer.models.FareHistoryModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,14 +32,14 @@ public class FareHistoryActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         /*fareRecycler.setHasFixedSize(false);*/
         fareRecycler.setLayoutManager(new LinearLayoutManager(this));
-        final FareRecyclerAdapter fareRecyclerAdapter = new FareRecyclerAdapter(getHistory());
+        final FareRecyclerAdapter fareRecyclerAdapter = new FareRecyclerAdapter();
         fareRecycler.setAdapter(fareRecyclerAdapter);
-//        fareRecyclerAdapter.setItems(getHistory());
+        fareRecyclerAdapter.setItems(getHistory());
     }
 
     //History ArrayList
     private ArrayList<FareHistoryModel> getHistory() {
-        ArrayList<FareHistoryModel> models=new ArrayList<>();
+        ArrayList<FareHistoryModel> models = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             FareHistoryModel model = new FareHistoryModel();
             model.setBusSacco("BusKenya");

@@ -1,4 +1,4 @@
-package com.example.peter.smartfarepayer.viewModel;
+package com.example.peter.smartfarepayer.models;
 
 public class FareHistoryModel {
     String busSacco;
