@@ -7,15 +7,15 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import com.example.peter.smartfarepayer.R;
-import com.example.peter.smartfarepayer.view.adapter.FareRecyclerAdapter;
 import com.example.peter.smartfarepayer.models.FareHistoryModel;
+import com.example.peter.smartfarepayer.view.adapter.FareRecyclerAdapter;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FareHistoryActivity extends AppCompatActivity {
+public class checkFareRatesActivity extends AppCompatActivity {
 
     protected @BindView(R.id.history_recycler)
     RecyclerView fareRecycler;

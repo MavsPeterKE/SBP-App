@@ -19,6 +19,7 @@
             android:paddingRight="16dp">
 
             <TextView
+                android:id="@+id/saccoHeader"
                 android:layout_centerVertical="true"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
@@ -26,6 +27,7 @@
                 android:textColor="#3E3E3E" />
 
             <TextView
+                android:id="@+id/travelDate"
                 android:layout_centerVertical="true"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="120dp"
@@ -60,6 +62,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/contentData"
                 android:background="#EEE"
                 android:gravity="center"
                 android:layout_height="100dp"

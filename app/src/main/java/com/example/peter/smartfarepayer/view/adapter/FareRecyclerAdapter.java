@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.peter.smartfarepayer.R;
 import com.example.peter.smartfarepayer.models.FareHistoryModel;
@@ -22,12 +23,14 @@ import butterknife.ButterKnife;
 
 public class FareRecyclerAdapter extends RecyclerView.Adapter<FareRecyclerAdapter.RecyclerHolder> {
 
-    private  ArrayList<FareHistoryModel> list;
+    private ArrayList<FareHistoryModel> list;
+    FareHistoryModel fareHistoryModel;
+
 
     private final ExpansionLayoutCollection expansionsCollection = new ExpansionLayoutCollection();
 
-    public FareRecyclerAdapter() {
-        //this.list=models;
+    public FareRecyclerAdapter(ArrayList<FareHistoryModel> models) {
+        this.list = models;
         expansionsCollection.openOnlyOne(true);
 
     }
@@ -40,8 +43,15 @@ public class FareRecyclerAdapter extends RecyclerView.Adapter<FareRecyclerAdapte
     @Override
     public void onBindViewHolder(RecyclerHolder holder, int position) {
         holder.bind(list.get(position));
+        fareHistoryModel = list.get(position);
+        //Log.e("listData__",fareHistoryModel.getBusSacco()+"/"+fareHistoryModel.getFareAmount());
+
 
         expansionsCollection.add(holder.getExpansionLayout());
+        holder.contentData.setText(fareHistoryModel.getBusSacco() + "/" + fareHistoryModel
+                .getFareAmount());
+        holder.tvSaccoHeader.setText(fareHistoryModel.getBusSacco());
+        holder.tvTravelDate.setText(fareHistoryModel.getTravelDate());
     }
 
     @Override
@@ -52,18 +62,26 @@ public class FareRecyclerAdapter extends RecyclerView.Adapter<FareRecyclerAdapte
     public void setItems(ArrayList<FareHistoryModel> items) {
         this.list.addAll(items);
         notifyDataSetChanged();
-        Log.e("setItems: ", ""+items.size());
+        Log.e("setItems: ", "" + items.size());
     }
 
     public final static class RecyclerHolder extends RecyclerView.ViewHolder {
 
-        private static final int LAYOUT = R.layout.fare_recycler_layout;
+        private static final int LAYOUT = R.layout.farehistory_recycler_layout;
 
         @BindView(R.id.expansionLayout)
         ExpansionLayout expansionLayout;
+        @BindView(R.id.contentData)
+        TextView contentData;
+        @BindView(R.id.saccoHeader)
+        TextView tvSaccoHeader;
+        @BindView(R.id.travelDate)
+        TextView tvTravelDate;
+
 
         public static RecyclerHolder buildFor(ViewGroup viewGroup) {
-            return new RecyclerHolder(LayoutInflater.from(viewGroup.getContext()).inflate(LAYOUT, viewGroup, false));
+            return new RecyclerHolder(LayoutInflater.from(viewGroup.getContext()).inflate(LAYOUT,
+                    viewGroup, false));
         }
 
         public RecyclerHolder(View itemView) {

@@ -58,6 +58,7 @@
                 android:weightSum="2">
 
                 <LinearLayout
+                    android:id="@+id/postComplain"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -79,6 +80,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/complainStatus"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -120,6 +122,7 @@
         android:weightSum="2">
 
         <android.support.v7.widget.CardView
+            android:id="@+id/cardLoudMusic"
             android:layout_width="match_parent"
             android:layout_height="140dp"
             android:layout_marginRight="5dp"
@@ -133,6 +136,7 @@
                 android:src="@drawable/loudvolume" />
 
             <CheckBox
+                android:id="@+id/checkboxLoudMusic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
@@ -147,6 +151,7 @@
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+            android:id="@+id/cardSpeeding"
             android:layout_width="match_parent"
             android:layout_height="140dp"
             android:layout_weight="1"
@@ -165,6 +170,7 @@
                 android:text="Speeding"/>
 
             <CheckBox
+                android:id="@+id/checkboxSpeeding"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
@@ -183,6 +189,7 @@
         android:layout_marginTop="5dp"
         android:orientation="horizontal">
         <android.support.v7.widget.CardView
+            android:id="@+id/cardExcess"
             android:layout_width="match_parent"
             android:layout_height="140dp"
             android:layout_weight="1"
@@ -202,12 +209,14 @@
                 android:text="Excess"/>
 
             <CheckBox
+                android:id="@+id/checkboxExcess"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
                 android:padding="10dp"/>
         </android.support.v7.widget.CardView>
         <android.support.v7.widget.CardView
+            android:id="@+id/cardRudeDriver"
             android:layout_width="match_parent"
             android:layout_height="140dp"
             android:layout_weight="1"
@@ -226,6 +235,7 @@
                 android:text="Rude Driver"/>
 
             <CheckBox
+                android:id="@+id/checkboxRudeDriver"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
