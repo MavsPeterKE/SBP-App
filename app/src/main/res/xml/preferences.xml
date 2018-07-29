@@ -1,0 +1,19 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:key="change_phone"
+        android:title="Change Payment Phone Number" />
+
+    <CheckBoxPreference
+        android:key="qr_scanner"
+        android:title="Enable Qr Scanner" />
+
+    <ListPreference
+        android:defaultValue="1"
+        android:entries="@array/clear_history"
+        android:entryValues="@array/clear_history"
+        android:key="history_interval"
+        android:summary="Select how history should be cleared"
+        android:title="Clear History" />
+
+</PreferenceScreen>

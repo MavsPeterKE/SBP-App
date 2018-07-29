@@ -2,7 +2,6 @@ package com.example.peter.smartfarepayer.view.activity;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,14 +9,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.peter.smartfarepayer.R;
@@ -25,12 +20,7 @@ import com.example.peter.smartfarepayer.models.SaccoData;
 import com.example.peter.smartfarepayer.retrofit.ApiService;
 import com.example.peter.smartfarepayer.retrofit.model.FareResponseModel;
 import com.example.peter.smartfarepayer.utils.ApiUtils;
-import com.example.peter.smartfarepayer.utils.PreferenceManager;
 import com.example.peter.smartfarepayer.viewModel.SaccoViewModel;
-import com.github.ybq.android.spinkit.SpinKitView;
-import com.github.ybq.android.spinkit.style.ThreeBounce;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,27 +29,24 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PayFareActivity extends AppCompatActivity implements NavigationView
+public class CheckFareRates extends AppCompatActivity implements NavigationView
         .OnNavigationItemSelectedListener {
     SaccoViewModel saccoViewModel;
     @BindView(R.id.numberPLate)
     EditText mEditTextNumberPLate;
     @BindView(R.id.seatNo)
     EditText mEditTextSeatNo;
-    @BindView(R.id.spin_kit)
-    SpinKitView loading;
-    @BindView(R.id.toolbar) Toolbar toolbar;
     private ApiService mApiService;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payfare);
-        ButterKnife.bind(this);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ButterKnife.bind(this);
         mApiService = ApiUtils.getApiService();
-        Toast.makeText(this, new PreferenceManager(this).getpaymentPhone(), Toast.LENGTH_SHORT).show();
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string
                 .navigation_drawer_open, R.string.navigation_drawer_close);
@@ -77,91 +64,44 @@ public class PayFareActivity extends AppCompatActivity implements NavigationView
 
     @OnClick(R.id.btPayFare)
     void startPayment() {
+        //startActivity(new Intent(this,ConfirmPaymentActivity.class));
         String numberPLate = mEditTextNumberPLate.getText().toString().trim();
-        String seatNO = mEditTextSeatNo.getText().toString().trim();
-        if (seatNO.length()>2 && seatNO.contains(",") || seatNO.length()<=2) {
-            if (numberPLate.isEmpty() || numberPLate.equals("")) {
-                mEditTextNumberPLate.setError("Required");
-            }
-            if (numberPLate.isEmpty() || numberPLate.equals("")) {
-                mEditTextSeatNo.setError("Required");
-            }
-            if (!numberPLate.isEmpty() && !seatNO.isEmpty()) {
-                mEditTextSeatNo.setError(null);
-                mEditTextNumberPLate.setError(null);
-                getFareAmount(numberPLate, seatNO);
-            }
-        }else {
-            Toast.makeText(this, "Multiple Seats. Separate With Comma", Toast.LENGTH_SHORT).show();
+        String seatNO = mEditTextNumberPLate.getText().toString().trim();
+        if (!numberPLate.isEmpty() && !seatNO.isEmpty()) {
+            getFareAmount(numberPLate);
         }
 
 
     }
 
-    private void getFareAmount(String numberPLate, final String seatNo) {
-        loading.setVisibility(View.VISIBLE);
-        ThreeBounce threeBounce = new ThreeBounce();
-        loading.setIndeterminateDrawable(threeBounce);
+
+    private void getFareAmount(String numberPLate) {
+        Toast.makeText(this, "Loading Request", Toast.LENGTH_SHORT).show();
         mApiService.getFareRate(numberPLate).enqueue(new Callback<FareResponseModel>() {
             @Override
             public void onResponse(Call<FareResponseModel> call, Response<FareResponseModel>
                     response) {
                 if (response.isSuccessful()) {
-                    loading.setVisibility(View.GONE);
-                    if (response.body()!=null) {
-                        ArrayList<String> invalidSeats =  checkSeatsValidity(response,seatNo);
-                        if (invalidSeats.size() == 0){
-                            sendPaymentData(response,seatNo);
-                        }else {
-                            Toast.makeText(PayFareActivity.this, "Invalid Seats "+invalidSeats.toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        Toast.makeText(PayFareActivity.this, "Vehicle Not Registered", Toast.LENGTH_SHORT).show();
-                    }
+                    Log.e("onResponse: ",response.body().getSaccoId());
+                 /* //  response.body().
+                    Toast.makeText(CheckFareRates.this, "Server Comm Successful" + response.body
+                            ().getSaccoName(), Toast.LENGTH_SHORT).show();
+                    Log.e("onResponse__", response.body().toString());*/
                 } else {
-                    Toast.makeText(PayFareActivity.this, "Server Problem", Toast.LENGTH_SHORT)
+                    Toast.makeText(CheckFareRates.this, "Server Problem", Toast.LENGTH_SHORT)
                             .show();
                 }
             }
 
             @Override
             public void onFailure(Call<FareResponseModel> call, Throwable t) {
-                Toast.makeText(PayFareActivity.this, t.toString(), Toast
+                Toast.makeText(CheckFareRates.this, t.toString(), Toast
                         .LENGTH_SHORT).show();
                 t.printStackTrace();
 
-                Log.e("fare",t.toString());
+                Log.d("fare",t.toString());
             }
         });
-    }
-
-    private ArrayList<String> checkSeatsValidity(Response<FareResponseModel> response, String seatNo) {
-        FareResponseModel fareResponseModel = response.body();
-        ArrayList<String> wrongSeats = new ArrayList<>();
-        if (seatNo.length() > 2 && seatNo.contains(",")) {
-            String[] seats = seatNo.split(",");
-            if (seats.length > 1) {
-                for (String seat : seats) {
-                    if (Integer.parseInt(seat) > Integer.parseInt(fareResponseModel.getCapacity
-                            ())) {
-                        wrongSeats.add(seat);
-                    }
-                }
-            }
-        } else {
-            if (Integer.parseInt(seatNo) > Integer.parseInt(fareResponseModel.getCapacity())) {
-                wrongSeats.add(seatNo);
-            }
-        }
-        return wrongSeats;
-    }
-
-    private void sendPaymentData(Response<FareResponseModel> response, String seatNo) {
-        Intent dataBit = new Intent(PayFareActivity.this, ConfirmPaymentActivity.class);
-        dataBit.putExtra("response", response.body());
-        dataBit.putExtra("seatNo", seatNo);
-        startActivity(dataBit);
-        Toast.makeText(PayFareActivity.this, "Server Comm Successful", Toast.LENGTH_SHORT).show();
     }
 
     @OnClick(R.id.cardTrackFare)
@@ -177,9 +117,6 @@ public class PayFareActivity extends AppCompatActivity implements NavigationView
         } else {
             super.onBackPressed();
         }
-        moveTaskToBack(true);
-        android.os.Process.killProcess(android.os.Process.myPid());
-        System.exit(1);
     }
 
     @Override
@@ -231,6 +168,4 @@ public class PayFareActivity extends AppCompatActivity implements NavigationView
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
 }

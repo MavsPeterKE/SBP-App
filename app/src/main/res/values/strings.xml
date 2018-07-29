@@ -7,8 +7,38 @@
 
     <string name="action_settings">Settings</string>
     <string name="confirm_Payment">Confirm Payment</string>
+    <string name="cancel_Payment">Cancel Payment</string>
     <string name="number_plate_header">Number Plate :</string>
     <string name="numberplate_value">KAQ657J</string>
     <string name="seat_lable">Seat No            :</string>
     <string name="fare_lable">Fare Amount    :</string>
+
+    <string name="title_activity_welcome">Home Screen</string>
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide_1_title">Smart Bus Payer!</string>
+    <string name="slide_1_desc">The easiest way to pay bus fare just at a click!</string>
+
+    <string name="slide_2_title">Track Fare Spending</string>
+    <string name="slide_2_desc">Access records history of your fare payments!</string>
+
+    <string name="slide_3_title">Check Fare Rates</string>
+    <string name="slide_3_desc">Determine Fare Charges from point A to B!</string>
+
+    <string name="slide_4_title">Report Complain</string>
+    <string name="slide_4_desc">Report complain on specific matatu in confidence!</string>
+
+    <string name="play_again_desc">Your Default Phone number to be used in making payments</string>
+    <string name="play_again">Set Phone Number</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+    <string-array name="clear_history">
+        <item>Always</item>
+        <item>Never</item>
+    </string-array>
+
+
 </resources>

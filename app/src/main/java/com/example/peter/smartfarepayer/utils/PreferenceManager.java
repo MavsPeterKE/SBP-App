@@ -1,0 +1,44 @@
+package com.example.peter.smartfarepayer.utils;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+
+public class PreferenceManager {
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
+    Context _context;
+
+    // shared pref mode
+    int PRIVATE_MODE = 0;
+
+    // Shared preferences file name
+    private static final String PREF_NAME = "sbp_welcome";
+
+    private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
+    private static final String PAYMENT_PHONE_NO = "default_phone";
+
+    public PreferenceManager(Context context) {
+        this._context = context;
+        pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
+        editor = pref.edit();
+    }
+
+    public void setFirstTimeLaunch(boolean isFirstTime) {
+        editor.putBoolean(IS_FIRST_TIME_LAUNCH, isFirstTime);
+        editor.commit();
+    }
+
+    public boolean isFirstTimeLaunch() {
+        return pref.getBoolean(IS_FIRST_TIME_LAUNCH, true);
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        editor.putString(IS_FIRST_TIME_LAUNCH, phoneNo);
+        editor.commit();
+    }
+
+    public String getpaymentPhone() {
+        return pref.getString(PAYMENT_PHONE_NO, "");
+    }
+
+}
