@@ -140,6 +140,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
+                android:clickable="false"
                 android:padding="10dp"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -166,6 +167,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center"
                 android:padding="10dp"
+                android:clickable="false"
                 android:layout_marginRight="10dp"
                 android:text="Speeding"/>
 
@@ -174,6 +176,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
+                android:clickable="false"
                 android:padding="10dp"/>
 
 
@@ -213,6 +216,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
+                android:clickable="false"
                 android:padding="10dp"/>
         </android.support.v7.widget.CardView>
         <android.support.v7.widget.CardView
@@ -231,6 +235,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center"
                 android:padding="10dp"
+                android:clickable="false"
                 android:layout_marginRight="5dp"
                 android:text="Rude Driver"/>
 
@@ -239,6 +244,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
+                android:clickable="false"
                 android:padding="10dp"/>
         </android.support.v7.widget.CardView>
 

@@ -13,23 +13,27 @@ import android.widget.TextView;
 
 import com.example.peter.smartfarepayer.R;
 import com.example.peter.smartfarepayer.models.FareHistoryModel;
+import com.example.peter.smartfarepayer.retrofit.model.HistoryResponse;
 import com.github.florent37.expansionpanel.ExpansionLayout;
 import com.github.florent37.expansionpanel.viewgroup.ExpansionLayoutCollection;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class FareRecyclerAdapter extends RecyclerView.Adapter<FareRecyclerAdapter.RecyclerHolder> {
 
-    private ArrayList<FareHistoryModel> list;
-    FareHistoryModel fareHistoryModel;
+    private List<HistoryResponse> list;
+    HistoryResponse fareHistoryModel;
 
 
     private final ExpansionLayoutCollection expansionsCollection = new ExpansionLayoutCollection();
 
-    public FareRecyclerAdapter(ArrayList<FareHistoryModel> models) {
+    public FareRecyclerAdapter(List<HistoryResponse> models) {
         this.list = models;
         expansionsCollection.openOnlyOne(true);
 
@@ -45,25 +49,22 @@ public class FareRecyclerAdapter extends RecyclerView.Adapter<FareRecyclerAdapte
         holder.bind(list.get(position));
         fareHistoryModel = list.get(position);
         //Log.e("listData__",fareHistoryModel.getBusSacco()+"/"+fareHistoryModel.getFareAmount());
-
-
         expansionsCollection.add(holder.getExpansionLayout());
-        holder.contentData.setText(fareHistoryModel.getBusSacco() + "/" + fareHistoryModel
-                .getFareAmount());
-        holder.tvSaccoHeader.setText(fareHistoryModel.getBusSacco());
-        holder.tvTravelDate.setText(fareHistoryModel.getTravelDate());
+        holder.contentData.setText(fareHistoryModel.getMpesaRefno() + " sh "+fareHistoryModel.getAmountPaid()+".00" );
+        holder.tvSaccoHeader.setText(fareHistoryModel.getSaccoName());
+        holder.tvTravelDate.setText(fareHistoryModel.getVehicleNumber());
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+       return list.size();
     }
 
-    public void setItems(ArrayList<FareHistoryModel> items) {
+   /* public void setItems(ArrayList<FareHistoryModel> items) {
         this.list.addAll(items);
         notifyDataSetChanged();
         Log.e("setItems: ", "" + items.size());
-    }
+    }*/
 
     public final static class RecyclerHolder extends RecyclerView.ViewHolder {
 

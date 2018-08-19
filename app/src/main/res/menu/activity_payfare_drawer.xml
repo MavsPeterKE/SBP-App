@@ -4,18 +4,18 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item
+       <!-- <item
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Recent Payment" />
+            android:title="Recent Payment" />-->
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Fare History" />
-        <item
+        <!--<item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Check Fare Rates" />
+            android:title="Check Fare Rates" />-->
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"

@@ -35,7 +35,7 @@ public class ConfirmPaymentActivity extends AppCompatActivity {
     @BindView(R.id.mpesaloading)ProgressBar mpesaloading;
     private ApiService mApiService;
     int fareAmount;
-    private PreferenceManager mPreferenceManager;
+    private PreferenceManager prefs;
     private MpesaResponseModel mMpesaResponseModel;
     private FareResponseModel fareResponseModel;
     private String seatNo;
@@ -50,8 +50,8 @@ public class ConfirmPaymentActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ButterKnife.bind(this);
         mApiService = ApiUtils.getApiService();
-        mPreferenceManager = new PreferenceManager(this);
-        mUtilMethods = new UtilMethods();
+        prefs = new PreferenceManager(this);
+        mUtilMethods = new UtilMethods(this);
         setViews();
     }
 
@@ -86,7 +86,11 @@ public class ConfirmPaymentActivity extends AppCompatActivity {
     void cancelPayment(){startActivity(new Intent(this,PayFareActivity.class));}
 
     private void triggerMpesaAPI() {
-        mApiService.getMpesaApi(Constants.TEST_PHONE,Constants.TEST_PAYBILL,fareAmount).enqueue(new Callback<MpesaResponseModel>() {
+        prefs.clearVSaccoId();
+        prefs.clearVehicleNumberPlate();
+        prefs.setSaccodId(fareResponseModel.getSaccoId());
+        prefs.setVehicleNumberPlate(fareResponseModel.getNumberPlate());
+        mApiService.getMpesaApi(prefs.getpaymentPhone(),Constants.TEST_PAYBILL,fareAmount).enqueue(new Callback<MpesaResponseModel>() {
             @Override
             public void onResponse(Call<MpesaResponseModel> call, Response<MpesaResponseModel>
                     response) {
@@ -106,7 +110,7 @@ public class ConfirmPaymentActivity extends AppCompatActivity {
 
     private void getPaymentResponse(MpesaResponseModel mpesaResponseModel){
         mApiService.getPaymentResponse(mpesaResponseModel.getMerchantRequestID(),
-                fareResponseModel.getNumberPlate(), seatNo).enqueue(new Callback<PaymentResponse>
+                fareResponseModel.getNumberPlate(), seatNo,fareResponseModel.getSaccoId()).enqueue(new Callback<PaymentResponse>
                 () {
 
 
@@ -127,11 +131,11 @@ public class ConfirmPaymentActivity extends AppCompatActivity {
     private void showPaymentFeedBack(PaymentResponse response) {
         if (response!=null) {
             if (response.getResultCode().equals("0")) {
-                String msg = response.getAmountPaid() +".00"+ "Paid to"+ response.getVehicleNumber()
-                +"For Seat"+" "+response.getSeatPaid();
-                mUtilMethods.successDialog(this,msg);
+                String msg = response.getAmountPaid() +".00"+ " Paid to "+ response.getVehicleNumber()
+                +"For Seat "+" "+response.getSeatPaid();
+                mUtilMethods.successDialog(msg,"Payment Successful");
             } else {
-                mUtilMethods.errorDialog(this,response.getResultDescription());
+                mUtilMethods.errorDialog(response.getResultDescription());
             }
         }
     }

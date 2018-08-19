@@ -24,7 +24,7 @@ public class PhoneCaptureActivity extends AppCompatActivity {
         setContentView(R.layout.welcome_slide5);
         ButterKnife.bind(this);
         prefs = new PreferenceManager(this);
-        if(!prefs.getpaymentPhone().isEmpty()|| !prefs.getpaymentPhone().equals("")){
+        if (!prefs.getpaymentPhone().equals("") || !prefs.getpaymentPhone().isEmpty()){
             startActivity(new Intent(this,PayFareActivity.class));
         }
     }
@@ -40,7 +40,8 @@ public class PhoneCaptureActivity extends AppCompatActivity {
         }
 
         if (!phone.isEmpty() && !phone.equals("") && phone.length() == 10){
-            prefs.setPhoneNo(phone);
+            prefs.setFirstTimeLaunch(true);
+            prefs.setPhoneNo("254"+phone.substring(1));
             Toast.makeText(this, prefs.getpaymentPhone(), Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this,PayFareActivity.class));
         }

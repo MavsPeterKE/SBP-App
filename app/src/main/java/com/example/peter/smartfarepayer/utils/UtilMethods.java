@@ -5,29 +5,33 @@ import android.content.Context;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public  class UtilMethods {
+    Context mContext;
 
-    public  void errorDialog(Context context, String message){
-        new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
+    public UtilMethods(Context context) {
+        mContext = context;
+    }
+
+    public  void errorDialog(String message){
+        new SweetAlertDialog(mContext, SweetAlertDialog.ERROR_TYPE)
                 .setTitleText("Payment Error")
                 .setContentText(message)
                 .show();
     }
 
-    public  void successDialog(Context context,String message){
-        new SweetAlertDialog(context, SweetAlertDialog.SUCCESS_TYPE)
-                .setTitleText("Payment Successfull")
+    public  void successDialog(String message,String title){
+        new SweetAlertDialog(mContext, SweetAlertDialog.SUCCESS_TYPE)
+                .setTitleText(title)
                 .setContentText(message)
                 .show();
     }
 
 
-    public void warningDialog(Context context){
-        new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+    public void warningDialog(){
+        new SweetAlertDialog(mContext, SweetAlertDialog.WARNING_TYPE)
                 .setTitleText("Are you sure?")
                 .setContentText("Won't be able to recover this file!")
                 .setConfirmText("Yes,delete it!")
                 .show();
     }
-
 
 }

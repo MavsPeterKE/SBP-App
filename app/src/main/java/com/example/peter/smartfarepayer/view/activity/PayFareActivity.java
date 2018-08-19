@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.peter.smartfarepayer.R;
@@ -48,8 +49,14 @@ public class PayFareActivity extends AppCompatActivity implements NavigationView
     EditText mEditTextSeatNo;
     @BindView(R.id.spin_kit)
     SpinKitView loading;
-    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.nav_view)
+    NavigationView navigationView;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawer;
     private ApiService mApiService;
+    private PreferenceManager prefs;
 
 
     @Override
@@ -59,20 +66,24 @@ public class PayFareActivity extends AppCompatActivity implements NavigationView
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         mApiService = ApiUtils.getApiService();
-        Toast.makeText(this, new PreferenceManager(this).getpaymentPhone(), Toast.LENGTH_SHORT).show();
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string
-                .navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        prefs = new PreferenceManager(this);
+        setViews();
         saccoViewModel = ViewModelProviders.of(this).get(SaccoViewModel.class);
         SaccoData data = new SaccoData("Peter", "Name", "Gty");
         saccoViewModel.insert(data);
         Log.e("onCreate: ", "done");
 
+    }
+
+    private void setViews() {
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string
+                .navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+        View header = navigationView.getHeaderView(0);
+        TextView tvPayPhone = (TextView) header.findViewById(R.id.payphone);
+        tvPayPhone.setText("Payment Phone : " + prefs.getpaymentPhone());
     }
 
     @OnClick(R.id.btPayFare)
@@ -161,7 +172,6 @@ public class PayFareActivity extends AppCompatActivity implements NavigationView
         dataBit.putExtra("response", response.body());
         dataBit.putExtra("seatNo", seatNo);
         startActivity(dataBit);
-        Toast.makeText(PayFareActivity.this, "Server Comm Successful", Toast.LENGTH_SHORT).show();
     }
 
     @OnClick(R.id.cardTrackFare)
@@ -211,15 +221,15 @@ public class PayFareActivity extends AppCompatActivity implements NavigationView
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+       /* if (id == R.id.nav_camera) {
             // Handle the camera action
             startActivity(new Intent(this, ConfirmPaymentActivity.class));
-        } else if (id == R.id.nav_gallery) {
+        }*/ if (id == R.id.nav_gallery) {
             startActivity(new Intent(this, FareHistoryActivity.class));
 
-        } else if (id == R.id.nav_slideshow) {
+        /*} else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_manage) {
+        } */}else if (id == R.id.nav_manage) {
             startActivity(new Intent(this, ComplainActivity.class));
         } else if (id == R.id.nav_share) {
 

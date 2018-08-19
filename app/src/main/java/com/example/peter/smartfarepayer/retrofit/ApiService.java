@@ -1,8 +1,12 @@
 package com.example.peter.smartfarepayer.retrofit;
 
+import com.example.peter.smartfarepayer.retrofit.model.ComplainResponse;
 import com.example.peter.smartfarepayer.retrofit.model.FareResponseModel;
+import com.example.peter.smartfarepayer.retrofit.model.HistoryResponse;
 import com.example.peter.smartfarepayer.retrofit.model.MpesaResponseModel;
 import com.example.peter.smartfarepayer.retrofit.model.PaymentResponse;
+
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -26,7 +30,18 @@ public interface ApiService {
     @POST("Retrofit/getPaymentResponse.php")
     @FormUrlEncoded
     Call<PaymentResponse> getPaymentResponse(@Field("merchant_id") String merchant_id, @Field
-            ("numberplate") String numberPlate, @Field("seatNo") String seatNo);
+            ("numberplate") String numberPlate, @Field("seatNo") String seatNo, @Field("sacco_id") String saccoId);
+
+    @POST("Retrofit/farehistory.php")
+    @FormUrlEncoded
+    Call<List<HistoryResponse>> getHistoryResponse(@Field("phone_no") String phone_no);
+
+    @POST("Retrofit/complains.php")
+    @FormUrlEncoded
+    Call<ComplainResponse> postComplain(@Field("complain") String numberplate,
+                                              @Field("numberplate") String complain,
+                                              @Field("sacco_id") String saccoId);
+
   /*  @GET("Retrofit/mpesa_Api.php")
     Call<ResponseBody> getMpesaApi();*/
 

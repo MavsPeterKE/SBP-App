@@ -126,7 +126,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void launchHomeScreen() {
-        prefManager.setFirstTimeLaunch(false);
+        //prefManager.setFirstTimeLaunch(false);
         startActivity(new Intent(WelcomeActivity.this, PhoneCaptureActivity.class));
         finish();
       /*  String phone = "2547340017";

@@ -148,15 +148,15 @@ public class CheckFareRates extends AppCompatActivity implements NavigationView
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        /*if (id == R.id.nav_camera) {
             // Handle the camera action
             startActivity(new Intent(this, ConfirmPaymentActivity.class));
-        } else if (id == R.id.nav_gallery) {
+        }*/ if (id == R.id.nav_gallery) {
             startActivity(new Intent(this, FareHistoryActivity.class));
 
-        } else if (id == R.id.nav_slideshow) {
+       /* } else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_manage) {
+        }*/} else if (id == R.id.nav_manage) {
             startActivity(new Intent(this, ComplainActivity.class));
         } else if (id == R.id.nav_share) {
 

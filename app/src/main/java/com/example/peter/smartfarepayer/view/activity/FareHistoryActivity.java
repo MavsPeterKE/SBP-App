@@ -5,23 +5,35 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.widget.ListView;
 
 import com.example.peter.smartfarepayer.R;
+import com.example.peter.smartfarepayer.retrofit.ApiService;
+import com.example.peter.smartfarepayer.retrofit.RetrofitClient;
+import com.example.peter.smartfarepayer.retrofit.model.HistoryResponse;
+import com.example.peter.smartfarepayer.retrofit.model.PaymentResponse;
+import com.example.peter.smartfarepayer.utils.ApiUtils;
+import com.example.peter.smartfarepayer.utils.PreferenceManager;
 import com.example.peter.smartfarepayer.view.adapter.FareRecyclerAdapter;
 import com.example.peter.smartfarepayer.models.FareHistoryModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FareHistoryActivity extends AppCompatActivity {
 
     protected @BindView(R.id.history_recycler)
     RecyclerView fareRecycler;
-
     protected @BindView(R.id.toolbar)
     Toolbar toolbar;
+    private ApiService mApiService;
+    private PreferenceManager prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,47 +42,32 @@ public class FareHistoryActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mApiService = ApiUtils.getApiService();
+        prefs = new PreferenceManager(this);
         /*fareRecycler.setHasFixedSize(false);*/
         fareRecycler.setLayoutManager(new LinearLayoutManager(this));
-        final FareRecyclerAdapter fareRecyclerAdapter = new FareRecyclerAdapter(getHistory());
+        syncHistory();
+    }
+
+    private void setHistory(List list) {
+        final FareRecyclerAdapter fareRecyclerAdapter = new FareRecyclerAdapter(list);
         fareRecycler.setAdapter(fareRecyclerAdapter);
-        //fareRecyclerAdapter.setItems(getHistory());
     }
 
     //History ArrayList
-    private ArrayList<FareHistoryModel> getHistory() {
-        ArrayList<FareHistoryModel> models = new ArrayList<>();
-        ArrayList<String>saccos= new ArrayList<>();
-        saccos.add("Kenya Mpya");
-        saccos.add("Metro Sacco");
-        saccos.add("Ummo Sacco");
-        saccos.add("KMO Sacco");
-        saccos.add("Rongai Sacco");
-        saccos.add("Embassava Sacco");
-        saccos.add("LINUS Sacco");
-        saccos.add("Joy Kenya");
-        saccos.add("Chania ");
-        saccos.add("NYS Buses");
-        ArrayList<String>dates= new ArrayList<>();
-        dates.add("01/02/2018");
-        dates.add("02/02/2018");
-        dates.add("03/02/2018");
-        dates.add("24/03/2018");
-        dates.add("25/03/2018");
-        dates.add("15/03/2018");
-        dates.add("10/04/2018");
-        dates.add("13/04/2018");
-        dates.add("16/04/2018");
-        dates.add("18/04/2018");
+    private void syncHistory() {
+        List<HistoryResponse> historyResponses = new ArrayList<>();
+        Call<List<HistoryResponse>> call = mApiService.getHistoryResponse(prefs.getpaymentPhone());
+        call.enqueue(new Callback<List<HistoryResponse>>() {
+            @Override
+            public void onResponse(Call<List<HistoryResponse>> call, Response<List<HistoryResponse>> response) {
+                setHistory(response.body());
+            }
 
-        for (int i = 0; i < saccos.size(); i++) {
-            FareHistoryModel model = new FareHistoryModel();
-            model.setBusSacco(saccos.get(i));
-            model.setFareAmount("90.00");
-            model.setTravelDate(dates.get(i));
-            model.setTravelTime("1010am");
-            models.add(model);
-        }
-        return models;
+            @Override
+            public void onFailure(Call<List<HistoryResponse>> call, Throwable t) {
+
+            }
+        });
     }
 }

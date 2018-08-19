@@ -8,9 +8,11 @@ import android.support.v7.widget.Toolbar;
 
 import com.example.peter.smartfarepayer.R;
 import com.example.peter.smartfarepayer.models.FareHistoryModel;
+import com.example.peter.smartfarepayer.retrofit.model.HistoryResponse;
 import com.example.peter.smartfarepayer.view.adapter.FareRecyclerAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,13 +34,13 @@ public class checkFareRatesActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         /*fareRecycler.setHasFixedSize(false);*/
         fareRecycler.setLayoutManager(new LinearLayoutManager(this));
-        final FareRecyclerAdapter fareRecyclerAdapter = new FareRecyclerAdapter(getHistory());
-        fareRecycler.setAdapter(fareRecyclerAdapter);
+        /* *//*     final FareRecyclerAdapter fareRecyclerAdapter = new FareRecyclerAdapter(getHistory());
+        fareRecycler.setAdapter(fareRecyclerAdapter*//*);
         //fareRecyclerAdapter.setItems(getHistory());
-    }
+    }*/
 
-    //History ArrayList
-    private ArrayList<FareHistoryModel> getHistory() {
+ /*   //History ArrayList
+    private List<HistoryResponse> getHistory() {
         ArrayList<FareHistoryModel> models = new ArrayList<>();
         ArrayList<String>saccos= new ArrayList<>();
         saccos.add("Kenya Mpya");
@@ -72,5 +74,5 @@ public class checkFareRatesActivity extends AppCompatActivity {
             models.add(model);
         }
         return models;
-    }
-}
+    }*/
+    }}
